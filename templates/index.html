@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon"> -->
+    <title>Document</title>
+</head>
+<body class="bg-gray-900 h-screen p-[10px] m-[10px]">
+    <h1 class="text-[20px] text-center text-gray-600 font-bold">Gestational Diabetes Prediction</h1>
+    <div class="form-wrapper">
+        <div class="form">
+            <!-- <div class="side-step"> -->
+                <div class="input-container text-white">
+                    <label class="text-white">Pregnancies <span class="text-red-500 text-xs error-Pregnancies"> </span></label>
+                    <input type="number" placeholder="enter no of pregnancies" name="pregnancies" required>
+                </div>
+                <div class="input-container">
+                    <label>Glucose <span class="text-red-500 text-xs error-Glucose"> </span></label>
+                    <input type="number" placeholder="enter glucose level" name="glucose" required>
+                </div>
+            <!-- </div> -->
+            <div class="input-container">
+                <label>Blood Pressure <span class="text-red-500 text-xs error-BloodPressure"> </span></label>
+                <input type="number" placeholder="enter blood pressure" name="blood_pressure">
+            </div>
+            <div class="input-container">
+                <label>Skin Thickness <span class="text-red-500 text-xs error-SkinThickness"> </span></label>
+                <input type="number" placeholder="enter skin thickness" name="skin_thickness">
+            </div>
+            <div class="input-container">
+                <label>Insulin <span class="text-red-500 text-xs error-Insulin"> </span></label>
+                <input type="number" placeholder="enter insulin level" name="insulin">
+            </div>
+            <div class="input-container">
+                <label>BMI <span class="text-red-500 text-xs error-BMI"> </span></label>
+                <input type="number" placeholder="enter BMI" name="bmi">
+            </div>
+            <div class="input-container">
+                <label>Diabetes Pedigree Function <span class="text-red-500 text-xs error-DiabetesPedigreeFunction"> </span></label>
+                <input type="number" placeholder="enter pedigree function" name="diabetes_pedigree_function">
+            </div>
+            <div class="input-container">
+                <label>Age <span class="text-red-500 text-xs error-Age"> </span></label>
+                <input type="number" placeholder="enter age" name="age" onchange="inputData(this)">
+            </div>
+
+            <button onclick="handleResultFetch()">Predict</button>
+        </div>
+    </div>
+
+    <div class="result-container fixed w-full h-full top-0 left-0 bg-transparent justify-center items-center">
+        <div class="shadow-xl border-1 border-gray-600 p-[10px] bg-gray-900 rounded-md w-[400px] h-[150px] text-center relative flex flex-col justify-center">
+            <div class="absolute top-1 right-2 cursor-pointer text-gray-400" onclick="closeResultScreen()">
+                <span class="material-symbols-outlined">
+                    close
+                    </span>
+            </div>
+            <h2 class="text-center text-gray-600 font-bold text-2xl">Prediction Result</h2>
+            <div class="result-wrapper">
+                <div class="text-green-500 text-2xl result">Negative</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const data = {
+            Pregnancies: 0,
+            Glucose: 0,
+            BloodPressure: 0,
+            SkinThickness: 0,
+            Insulin: 0,
+            BMI: 0,
+            DiabetesPedigreeFunction: 0,
+            Age: 0,
+        }
+
+        document.querySelectorAll("input").forEach((input) => {
+            input.addEventListener("keyup", (e) => {
+                data[e.target.name] = parseInt(e.target.value);
+                console.log(data)
+            })
+        })
+
+        const handleResultFetch = async () => {
+            let isNull = checkInputs();
+            if(isNull) return;
+            try {
+                const res = await fetch("/predict", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {"Content-Type": "application/json"},
+                })
+
+                let result = await res.json();
+                console.log(result);
+                if(result){
+                    document.querySelector(".result-wrapper").innerHTML = result.toLowerCase().includes("negative") ? `<div class="text-green-500 text-2xl result">${result}</div>` : `<div class="text-red-500 text-2xl result">${result}</div>`
+                    document.querySelector(".result-container").style.display = "flex";
+                }
+                
+            } catch (error) {
+                console.log("Something went wrong: ", error.message);
+            }
+
+        }
+
+        const checkInputs = () => {
+            let isNull = false;
+            for(let key in data){
+                if(data[key] === 0){
+                    document.querySelector(`.error-${key}`).innerHTML = "*this field is required";
+                    isNull = true;
+                }
+            }
+            return isNull;
+        }
+
+        const closeResultScreen = () => document.querySelector(".result-container").style.display = "none";
+
+
+    </script>
+</body>
+</html>
