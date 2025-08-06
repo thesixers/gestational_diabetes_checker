@@ -14,7 +14,12 @@ with open('model/scaler.pkl', 'rb') as scaler_file:
 
 @app.route('/')
 def home():
+    return render_template('landing.html')
+
+@app.route('/predict', methods=['GET'])
+def predict_form():
     return render_template('index.html')
+
 
 @app.route('/predict', methods=['POST'])
 def predict():

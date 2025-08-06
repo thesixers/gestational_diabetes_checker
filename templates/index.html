@@ -10,42 +10,42 @@
     <title>Document</title>
 </head>
 <body class="bg-gray-900 h-screen p-[10px] m-[10px]">
-    <h1 class="text-[20px] text-center text-gray-600 font-bold">Gestational Diabetes Prediction</h1>
+    <h1 class="text-[20px] text-center text-blue-600 font-bold">Gestational Diabetes Prediction</h1>
     <div class="form-wrapper">
         <div class="form">
             <!-- <div class="side-step"> -->
                 <div class="input-container text-white">
                     <label class="text-white">Pregnancies <span class="text-red-500 text-xs error-Pregnancies"> </span></label>
-                    <input type="number" placeholder="enter no of pregnancies" name="pregnancies" required>
+                    <input type="number" placeholder="enter no of pregnancies" name="Pregnancies" required>
                 </div>
                 <div class="input-container">
                     <label>Glucose <span class="text-red-500 text-xs error-Glucose"> </span></label>
-                    <input type="number" placeholder="enter glucose level" name="glucose" required>
+                    <input type="number" placeholder="enter glucose level" name="Glucose" required>
                 </div>
             <!-- </div> -->
             <div class="input-container">
                 <label>Blood Pressure <span class="text-red-500 text-xs error-BloodPressure"> </span></label>
-                <input type="number" placeholder="enter blood pressure" name="blood_pressure">
+                <input type="number" placeholder="enter blood pressure" name="BloodPressure">
             </div>
             <div class="input-container">
                 <label>Skin Thickness <span class="text-red-500 text-xs error-SkinThickness"> </span></label>
-                <input type="number" placeholder="enter skin thickness" name="skin_thickness">
+                <input type="number" placeholder="enter skin thickness" name="SkinThickness">
             </div>
             <div class="input-container">
                 <label>Insulin <span class="text-red-500 text-xs error-Insulin"> </span></label>
-                <input type="number" placeholder="enter insulin level" name="insulin">
+                <input type="number" placeholder="enter insulin level" name="Insulin">
             </div>
             <div class="input-container">
                 <label>BMI <span class="text-red-500 text-xs error-BMI"> </span></label>
-                <input type="number" placeholder="enter BMI" name="bmi">
+                <input type="number" placeholder="enter BMI" name="BMI">
             </div>
             <div class="input-container">
                 <label>Diabetes Pedigree Function <span class="text-red-500 text-xs error-DiabetesPedigreeFunction"> </span></label>
-                <input type="number" placeholder="enter pedigree function" name="diabetes_pedigree_function">
+                <input type="number" placeholder="enter pedigree function" name="DiabetesPedigreeFunction">
             </div>
             <div class="input-container">
                 <label>Age <span class="text-red-500 text-xs error-Age"> </span></label>
-                <input type="number" placeholder="enter age" name="age" onchange="inputData(this)">
+                <input type="number" placeholder="enter age" name="Age" onchange="inputData(this)">
             </div>
 
             <button onclick="handleResultFetch()">Predict</button>
@@ -81,7 +81,7 @@
 
         document.querySelectorAll("input").forEach((input) => {
             input.addEventListener("keyup", (e) => {
-                data[e.target.name] = parseInt(e.target.value);
+                data[e.target.name] = e.target.value === "" ? 0 : parseInt(e.target.value);
                 console.log(data)
             })
         })
@@ -95,6 +95,8 @@
                     body: JSON.stringify(data),
                     headers: {"Content-Type": "application/json"},
                 })
+
+                console.log(res);
 
                 let result = await res.json();
                 console.log(result);

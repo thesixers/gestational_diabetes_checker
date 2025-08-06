@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestational Diabetes Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <header class="flex items-center justify-between px-6 py-4 shadow-md bg-gray-900">
+      <h1 class="text-2xl font-bold text-blue-600">GD Predictor</h1>
+      <nav>
+        <ul class="flex space-x-6 font-medium">
+          <li><a href="/" class="hover:text-blue-600">Home</a></li>
+          <li><a href="/predict" class="hover:text-blue-600">Check Status</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 py-16 bg-gray-900">
+      <div class="md:w-1/2">
+        <h2 class="text-4xl font-bold mb-4 text-blue-800">
+          Predict Gestational Diabetes Easily
+        </h2>
+        <p class="text-lg mb-6 text-gray-200">
+          Enter medical data and let our trained machine learning model help assess the risk of gestational diabetes.
+        </p>
+        <a
+          href="#form"
+          class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700"
+        >
+          Check Now
+        </a>
+      </div>
+
+    </section>
+
+    <!-- Key Features -->
+    <section class="px-6 md:px-20 py-16 bg-gray-900 text-white">
+      <h3 class="text-3xl font-bold text-center mb-12 text-gray-400">Key Features</h3>
+      <div class="grid md:grid-cols-3 gap-10 text-center">
+        <div class="p-6 rounded-lg shadow hover:shadow-md border">
+          <h4 class="text-xl font-semibold mb-3 text-blue-600">ML-based Prediction</h4>
+          <p class="text-gray-200">
+            Uses trained machine learning models to predict the likelihood of gestational diabetes.
+          </p>
+        </div>
+        <div class="p-6 rounded-lg shadow hover:shadow-md border">
+          <h4 class="text-xl font-semibold mb-3 text-blue-600">Clean Dataset</h4>
+          <p class="text-gray-200">
+            Based on a well-preprocessed dataset enhanced using SMOTE for balanced predictions.
+          </p>
+        </div>
+        <div class="p-6 rounded-lg shadow hover:shadow-md border">
+          <h4 class="text-xl font-semibold mb-3 text-blue-600">Simple Interface</h4>
+          <p class="text-gray-200">
+            Enter data on one page and get instant results — no login or account required.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="text-center py-6 text-gray-600 text-sm bg-gray-900">
+      &copy; 2025 GDM Predictor. Built for Educational Use.
+    </footer>
+
+  </body>
+</html>
